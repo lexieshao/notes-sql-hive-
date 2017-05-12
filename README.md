@@ -62,3 +62,8 @@ ps: – 为避免不必要的错误，对表做任何操作时，最后都带上
     alter xxx_table change column_name new_column_name new_type;
 -- 增加列：
     alter xxx_table add columns( column_name type, ...);
+```  
+* with as 在 内存中建表，可以随时调用 
+ ```sql
+ with tablemm as (select (select c1,c2,c3 from tablea) as a 
+ join (select c1 c2 c3 c4 form tableb) as  b on a.c1=b.c1

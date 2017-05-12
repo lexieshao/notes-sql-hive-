@@ -57,7 +57,7 @@ ps: – 为避免不必要的错误，对表做任何操作时，最后都带上
 -- update和delete 不支持！
    -- 偶尔需要修改一个
 -- 修改表名：
-    alter xxx_table rename to XXX_table;
+    alter table xxx_table rename to XXX_table;
 -- 修改字段：
     alter xxx_table change column_name new_column_name new_type;
 -- 增加列：

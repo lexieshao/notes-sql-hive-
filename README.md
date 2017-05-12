@@ -45,3 +45,20 @@ ps: – 为避免不必要的错误，对表做任何操作时，最后都带上
    load data inpath '/user/supeng/xxx.csv' into table daliy_analysis.test_create_new_table
 
 ```
+  
+ * 增删改
+ ```sql
+ -- 插入数据：
+    insert into table_name values(xxx);
+    insert into table_name select * from xxx_table;--只是简单的copy插入，不做重复性校验，如果插入前有N条数据和要插入的数据一样，那么插入后会有N+1条数据；
+    insert overwrite table ${table} select * from xxx_table;--会覆盖已经存在的数据，我们假设要插入的数据和已经存在的N条数据一样，那么插入后只会保留一条数据；
+-- 删除表：
+    drop table xxx_table;
+-- update和delete 不支持！
+   -- 偶尔需要修改一个
+-- 修改表名：
+    alter xxx_table rename to XXX_table;
+-- 修改字段：
+    alter xxx_table change column_name new_column_name new_type;
+-- 增加列：
+    alter xxx_table add columns( column_name type, ...);

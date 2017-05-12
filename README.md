@@ -1,4 +1,5 @@
-# notes-sql-hive-  
+# notes-sql-hive-    
+先简单介绍sql在hive里的使用
 Hive是一个数据仓库基础工具在Hadoop中用来处理结构化数据。
 http://www.yiibai.com/hive/
 http://172.31.50.110:80/YumLearning/index.html
@@ -23,19 +24,24 @@ ps: – 为避免不必要的错误，对表做任何操作时，最后都带上
 外部表的效率会比内部表低
 * 建表：  
 ```sql
--- 建一张普通的内部表
-    create table daliy_analysis.test_create_new_table 
-    (userid int,
-     username string,)
+-- 建一张普通的内部表 
+    create table ${tablename}
+    (userid int, username string, aa float)
 -- 从别的表中抽取字段：
     create table daliy_analysis.test_select_new_table as
     select column1,column2 from table2 
     where column3!=null
 -- 创建一张表结构和另一张表一毛一样的表：
-    create table daliy_analysis.test_copy_table like xxx_table;
+    create table daliy_analysis.test_copy_table 
+    like xxx_table;
 -- 将自己上传到hdfs的文件数据存入表
-   -- 先建立好表，并指明分隔符和存储方式
+ -- 先建立好表，并指明分隔符和存储方式
     create table daliy_analysis.test_create_new_table
-    (userid int,
-     username string,)
+    (userid int, username string,) 
+    row format delimited 
+    fields terminated by '\t' --指定分割符，hive只支持一个字节的分隔符，如：, | \ # $ % \t \n \r
+     stored as textfile; (或者 stored as parquet )
+   -- 然后将其他目录的文件载入表中
+   load data inpath '/user/supeng/xxx.csv' into table daliy_analysis.test_create_new_table
+
 ```
